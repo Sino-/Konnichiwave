@@ -1,3 +1,14 @@
+#
+
+KONNICHIWAVE:
+1. Open Terminal
+2. Go to the root directory of the source code.
+3. Run the command: 
+	python -m SimpleHTTPServer
+4. Open a web browser and in the URL bar type:
+	localhost:8000
+5. PLAY!
+
 # TwoPointFive for Impact
 
 TwoPointFive is a plugin for the [Impact HTML5 Game Engine](http://impactjs.com/) that provides a 3D viewport for the game world.
