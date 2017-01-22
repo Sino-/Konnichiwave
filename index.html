@@ -35,6 +35,9 @@
 				<input type="checkbox" id="requestFullscreen"/>
 				<label for="requestFullscreen"><span></span>Fullscreen</label>
 			</div>
+			<audio id="bgmusic" autoplay="autoplay" controls="controls" loop="loop">  
+  				<source src="media/sounds/bg1.ogg"/>
+			</audio> 
 			<div class="option">
 				<input type="checkbox" id="riftStereoMode"/>
 				<label for="riftStereoMode"><span></span>Oculus Rift DK2 Stereo Rendering</label>
@@ -55,6 +58,9 @@
 			</p>
 		</div>
 	</div>
-
+	<script type="text/javascript">
+		var aud = document.getElementById("bgmusic");
+		aud.volume = 0.2;
+	</script>
 </body>
 </html>
