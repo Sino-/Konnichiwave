@@ -11,6 +11,7 @@ html {
 }
 
 body {
+	background-color: #222;
 	color: #eee;
 	font-family: helvetica, arial, sans-serif;
 	margin: 0;
@@ -36,10 +37,9 @@ a:hover {
 	color: #077fe5;
 }
 
-.panel {
-	margin-bottom: 32px;
-	padding: 8px;
-	background-color: rgba(0,0,0,0.5);
+.panelBox {
+	margin-bottom: 10px;
+	display: inline-block;
 }
 
 .option {
@@ -65,7 +65,7 @@ label {
 }
 
 
-/* 
+/*
 	Display or hide certain elements depending on platform (mobile/desktop),
 	orientation (landscape/portrait) and webgl support.
 	The body classes .mobile or .desktop and .webgl or .no-webgl are set in
@@ -82,7 +82,7 @@ body.webgl .no-webgl-only { display: none; }
 body.no-webgl .webgl-only { display: none; }
 
 body.desktop {
-	padding: 32px 0 128px 0;
+	padding: 0px 0 60px 0;
 	width: 640px;
 	margin: 0 auto;
 }

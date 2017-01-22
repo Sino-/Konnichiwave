@@ -8,18 +8,34 @@
 	<meta name="viewport" content="width=device-width, minimal-ui, initial-scale=1, maximum-scale=1, user-scalable=0">
 
 	<link rel="stylesheet" type="text/css" href="styles.css"/>
-
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<style type="text/css">
+		body {
+			background-color: #222;
+		}
+		#credits {
+			position: relative;
+			bottom: 0px;
+			right: 0px;
+			color: #ffffff;
+		}
+		#scoreList {
+			display: inline-block;
+			color: #ffffff;
+		}
+		#playerList {
+			color: #ffffff;
+		}
+	</style>
 	<script type="text/javascript" src="blobblaster.min.js"></script>
 </head>
 
 <body id="xibalba" class="desktop webgl">
-	<div class="panel desktop-only">
-		<h1>
-			Demo Game using the
-			<a href="http://github.com/phoboslab/twopointfive">TwoPointFive Plugin</a>
-			for
-			<a href="http://impactjs.com/">Impact</a>
-		</h1>
+	<div class="panelBox desktop-only">
+		<h1 class="lead text-primary">Konnichiwave</h1>
+		<div id="credits">
+			<p class="small">Powered by <a href="http://impactjs.com/">ImpactJS</a></p>
+		</div>
 	</div>
 
 	<div id="game" class="webgl-only">
@@ -30,7 +46,7 @@
 			Rotate to Landscape to play!
 		</div>
 
-		<div class="panel desktop-only">
+		<div class="panelBox desktop-only">
 			<div class="option">
 				<input type="checkbox" id="requestFullscreen"/>
 				<label for="requestFullscreen"><span></span>Fullscreen</label>
@@ -38,16 +54,16 @@
 			<audio id="bgmusic" autoplay="autoplay" controls="controls" loop="loop">
   				<source src="media/sounds/bg1.ogg"/>
 			</audio>
-			<div class="option">
+			<!-- <div class="option">
 				<input type="checkbox" id="riftStereoMode"/>
 				<label for="riftStereoMode"><span></span>Oculus Rift DK2 Stereo Rendering</label>
 				– requires the <a href="http://blog.tojicode.com/2014/07/bringing-vr-to-chrome.html">Chrome WebVR Build</a>
-			</div>
+			</div> -->
 		</div>
 	</div>
 
 	<div class="no-webgl-only">
-		<div id="no-webgl-notice" class="panel">
+		<div id="no-webgl-notice" class="panelBox">
 			<p>
 				Your browser does not support WebGL. Try
 				<a href="http://www.google.com/chrome">Chrome</a> or
@@ -58,13 +74,20 @@
 			</p>
 		</div>
 	</div>
+
+	<div id="scoreList">
+		<p class="lead">Top 5 Scores</p>
+		<ol id="playerList"></ol>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script type="text/javascript">
 		var aud = document.getElementById("bgmusic");
 		let scoreSubmitted = false;
 		aud.volume = 0.2;
 
 		function promptSubmit(score) {
-		  console.log('HIT');
 		  let username = '';
 
 		  if (scoreSubmitted) {
@@ -81,18 +104,44 @@
 		    //  }
 		    }
 		  }
-		  else
-		  	return;
+		}
+
+		function getHighScores() {
+			$.ajax({
+				url: 'scripts/getHighScores.php',
+				type: 'GET',
+				success: (resp) => {
+					console.log(resp);
+					$('#playerList').empty();
+					const jsonData = JSON.parse(resp);
+					for (let i in jsonData) {
+						let player = jsonData[i];
+						let elem = `<li>${player.username} - ${player.score}</li>`;
+						$('#playerList').append(elem);
+					}
+				},
+				error: (err) => {
+					console.error('Score Submit Error: ', err);
+				}
+			});
 		}
 
 		function submitScore(username, score) {
-		  const request = new XMLHttpRequest();
-		  request.open('POST', 'scripts/submitScore.php', true);
-		  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-		  request.send({ username, score });
+			$.ajax({
+				url: 'scripts/submitScore.php',
+				type: 'POST',
+				data: { username, score },
+				success: (resp) => {
+					console.log('Score Submit: ', resp);
+					getHighScores();
+				},
+				error: (err) => {
+					console.error('Score Submit Error: ', err);
+				}
+			});
 		}
 
-
+		getHighScores();
 	</script>
 </body>
 </html>

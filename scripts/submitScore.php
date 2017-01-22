@@ -1,16 +1,5 @@
 <?php
-
-  #### CONNECTING TO MYSQL ####
-  $HOST = 'localhost';
-  $USER = 'root';
-  $PASS = 'root';
-  $DBNAME = 'database_name';
-
-  $TABLE = 'highscore';
-
-  mysql_connect($HOST, $USER, $PASS) or die(mysql_error());
-  mysql_select_db($DBNAME);
-  ####  ####
+  include './database.inc.php';
 
   // Bits of security: ensuring both username and score and sent into this request and score is numeric
   if (empty($_POST['username']) || empty($_POST['score'] || !is_numeric($score))) {
@@ -31,6 +20,7 @@
     echo "success";
   } else {
     echo "failure";
+    echo mysql_error();
   }
 
 ?>
