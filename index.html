@@ -60,16 +60,24 @@
 	</div>
 	<script type="text/javascript">
 		var aud = document.getElementById("bgmusic");
+		let scoreSubmitted = false;
 		aud.volume = 0.2;
 
 		function promptSubmit(score) {
+		  console.log('HIT');
 		  let username = '';
+
+		  if (scoreSubmitted) {
+		  	return;
+		  }
 
 		  if (confirm(`You scored ${score} wavebacks, do you want to submit this score?`)) {
 		    while (!username) {
 		      username = prompt("Please enter your name");
 		      if (username) {
 		        submitScore(username, score);
+		        scoreSubmitted = true;
+		        return;
 		      }
 		    }
 		  }
