@@ -72,15 +72,17 @@
 		  }
 
 		  if (confirm(`You scored ${score} wavebacks, do you want to submit this score?`)) {
-		    while (!username) {
+		   // while (!username) {
 		      username = prompt("Please enter your name");
 		      if (username) {
 		        submitScore(username, score);
 		        scoreSubmitted = true;
 		        return;
-		      }
+		    //  }
 		    }
 		  }
+		  else
+		  	return;
 		}
 
 		function submitScore(username, score) {
