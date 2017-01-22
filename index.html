@@ -13,9 +13,6 @@
 </head>
 
 <body id="xibalba" class="desktop webgl">
-<audio autoplay="autoplay" controls="controls" loop>  
-   <source src="media/sounds/bg.ogg" />  
-</audio> 
 	<div class="panel desktop-only">
 		<h1>
 			Demo Game using the
@@ -38,6 +35,9 @@
 				<input type="checkbox" id="requestFullscreen"/>
 				<label for="requestFullscreen"><span></span>Fullscreen</label>
 			</div>
+			<audio id="bgmusic" autoplay="autoplay" controls="controls" loop="loop">
+  				<source src="media/sounds/bg1.ogg"/>
+			</audio>
 			<div class="option">
 				<input type="checkbox" id="riftStereoMode"/>
 				<label for="riftStereoMode"><span></span>Oculus Rift DK2 Stereo Rendering</label>
@@ -58,6 +58,39 @@
 			</p>
 		</div>
 	</div>
+	<script type="text/javascript">
+		var aud = document.getElementById("bgmusic");
+		let scoreSubmitted = false;
+		aud.volume = 0.2;
 
+		function promptSubmit(score) {
+		  console.log('HIT');
+		  let username = '';
+
+		  if (scoreSubmitted) {
+		  	return;
+		  }
+
+		  if (confirm(`You scored ${score} wavebacks, do you want to submit this score?`)) {
+		    while (!username) {
+		      username = prompt("Please enter your name");
+		      if (username) {
+		        submitScore(username, score);
+		        scoreSubmitted = true;
+		        return;
+		      }
+		    }
+		  }
+		}
+
+		function submitScore(username, score) {
+		  const request = new XMLHttpRequest();
+		  request.open('POST', 'scripts/submitScore.php', true);
+		  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+		  request.send({ username, score });
+		}
+
+
+	</script>
 </body>
 </html>
