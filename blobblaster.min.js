@@ -6069,7 +6069,7 @@ ig.module('game.entities.player').requires('plugins.twopointfive.entity', 'plugi
             a: 1
         },
         god: false,
-        hurtSounds: [new ig.Sound('media/sounds/hurt1.*'), new ig.Sound('media/sounds/hurt2.*'), new ig.Sound('media/sounds/hurt3.*'), new ig.Sound('media/sounds/hurt4.*')],
+        hurtSounds: [new ig.Sound('media/sounds/hurt1.*'), new ig.Sound('media/sounds/hurt2.*'), new ig.Sound('media/sounds/hurt3.*'), new ig.Sound('media/sounds/hurt4.*'), new ig.Sound('media/sounds/hurt5.*')],
         init: function(x, y, settings) {
             this.parent(x, y, settings);
             this.internalAngle = this.angle;
