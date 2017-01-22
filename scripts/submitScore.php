@@ -4,7 +4,7 @@
   $HOST = 'localhost';
   $USER = 'root';
   $PASS = 'root';
-  $DBNAME = 'database_name';
+  $DBNAME = 'Konnichiwave';
 
   $TABLE = 'highscore';
 
